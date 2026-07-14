@@ -30,13 +30,13 @@ networks:
     driver: bridge
 
 include:
-  - compose/gluetun.yml
-  - compose/qbittorrent.yml
-  - compose/prowlarr.yml
-  - compose/sonarr.yml
-  - compose/radarr.yml
-  - compose/bazarr.yml
+  # - compose/gluetun.yml
+  # - compose/qbittorrent.yml
+  # - compose/prowlarr.yml
+  # - compose/sonarr.yml
+  # - compose/radarr.yml
+  # - compose/bazarr.yml
   - compose/jellyfin.yml
-  - compose/jellyseerr.yml
-  - compose/watchtower.yml
-  - compose/portainer.yml
+  # - compose/jellyseerr.yml
+  # - compose/watchtower.yml
+  # - compose/portainer.yml
