@@ -1,0 +1,27 @@
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${CONFIG_PATH}/jellyfin:/config
+      - ${MEDIA_PATH}/movies:/data/movies
+      - ${MEDIA_PATH}/tv:/data/tv
+      - ${MEDIA_PATH}/anime:/data/anime
+      - ${MEDIA_PATH}/music:/data/music
+      - ${MEDIA_PATH}/photos:/data/photos
+    ports:
+      - "8096:8096"       # HTTP WebUI
+      - "8920:8920"       # HTTPS (optional)
+      - "7359:7359/udp"   # Client discovery
+      - "1900:1900/udp"   # DLNA
+    # Uncomment to enable hardware-accelerated transcoding on Pi 5
+    # (requires the host kernel to expose /dev/dri, i.e. v3d/VideoCore driver)
+    # devices:
+    #   - /dev/dri:/dev/dri
+    restart: unless-stopped
+    networks:
+      - media_network

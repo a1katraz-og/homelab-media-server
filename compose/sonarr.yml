@@ -1,0 +1,20 @@
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${CONFIG_PATH}/sonarr:/config
+      - ${MEDIA_PATH}/tv:/tv
+      - ${DOWNLOAD_PATH}:/downloads
+    ports:
+      - "8989:8989"
+    restart: unless-stopped
+    networks:
+      - media_network
+    depends_on:
+      - prowlarr
+      - qbittorrent

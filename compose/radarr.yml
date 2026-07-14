@@ -1,0 +1,20 @@
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+    volumes:
+      - ${CONFIG_PATH}/radarr:/config
+      - ${MEDIA_PATH}/movies:/movies
+      - ${DOWNLOAD_PATH}:/downloads
+    ports:
+      - "7878:7878"
+    restart: unless-stopped
+    networks:
+      - media_network
+    depends_on:
+      - prowlarr
+      - qbittorrent

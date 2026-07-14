@@ -1,0 +1,42 @@
+#
+# Raspberry Pi 5 Media Server — Root Compose File
+#
+# This file wires together the shared network and pulls in every
+# service definition from ./compose/*.yml using the Compose "include"
+# key (requires Docker Compose v2.20+ / `docker compose version`).
+#
+# If your Compose version is older and does not support `include:`,
+# start the stack instead with:
+#
+#   docker compose \
+#     -f compose/gluetun.yml \
+#     -f compose/qbittorrent.yml \
+#     -f compose/prowlarr.yml \
+#     -f compose/sonarr.yml \
+#     -f compose/radarr.yml \
+#     -f compose/bazarr.yml \
+#     -f compose/jellyfin.yml \
+#     -f compose/jellyseerr.yml \
+#     -f compose/watchtower.yml \
+#     -f compose/portainer.yml \
+#     up -d
+#
+
+name: media-server
+
+networks:
+  media_network:
+    name: media_network
+    driver: bridge
+
+include:
+  - compose/gluetun.yml
+  - compose/qbittorrent.yml
+  - compose/prowlarr.yml
+  - compose/sonarr.yml
+  - compose/radarr.yml
+  - compose/bazarr.yml
+  - compose/jellyfin.yml
+  - compose/jellyseerr.yml
+  - compose/watchtower.yml
+  - compose/portainer.yml
