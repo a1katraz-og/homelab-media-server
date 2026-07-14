@@ -15,9 +15,9 @@ services:
       - ${MEDIA_PATH}/photos:/data/photos
     ports:
       - "8096:8096"       # HTTP WebUI
-      - "8920:8920"       # HTTPS (optional)
-      - "7359:7359/udp"   # Client discovery
-      - "1900:1900/udp"   # DLNA
+    #  - "8920:8920"       # HTTPS (optional)
+    #  - "7359:7359/udp"   # Client discovery
+    #  - "1900:1900/udp"   # DLNA
     # Uncomment to enable hardware-accelerated transcoding on Pi 5
     # (requires the host kernel to expose /dev/dri, i.e. v3d/VideoCore driver)
     # devices:
