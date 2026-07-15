@@ -1,5 +1,5 @@
 services:
-  # Note: MariaDB is an external service. You can find more information about the configuration here:
+  # Note: MariaDB is external service. You can find more information about the configuration here:
   # https://hub.docker.com/_/mariadb
   db:
     # Note: Check the recommend version here: https://docs.nextcloud.com/server/latest/admin_manual/installation/system_requirements.html#server
@@ -21,8 +21,10 @@ services:
     restart: always
 
   app:
-    image: nextcloud:fpm
+    image: nextcloud
     restart: always
+    ports:
+      - 8080:80
     depends_on:
       - redis
       - db
@@ -33,21 +35,6 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=db
-
-  # Note: Nginx is an external service. You can find more information about the configuration here:
-  # https://hub.docker.com/_/nginx/
-  web:
-    image: nginx:alpine-slim
-    restart: always
-    ports:
-      - 8080:80
-    depends_on:
-      - app
-    volumes:
-      # https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html
-      - ../configs/nginx.conf:/etc/nginx/nginx.conf:ro 
-    volumes_from:
-      - app
 
 volumes:
   nextcloud:
