@@ -42,3 +42,4 @@ include:
   - compose/watchtower.yml
   - compose/portainer.yml
   - compose/homarr.yml
+  - compose/traefik.yml
