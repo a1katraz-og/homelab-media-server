@@ -2,12 +2,9 @@
 
 # 🏠 Media Server
 
-**A production-ready, self-hosted media automation stack **
-
-Docker Compose · Jellyfin · Sonarr · Radarr · Prowlarr · qBittorrent · Gluetun VPN
+  A production-ready, self-hosted media automation stack
 
 [![Docker](https://img.shields.io/badge/deployed%20with-Docker%20Compose-2496ED?logo=docker&logoColor=white)](#)
-[![VPN](https://img.shields.io/badge/traffic-VPN%20secured-success?logo=wireguard&logoColor=white)](#)
 
 </div>
 
@@ -203,8 +200,6 @@ docker compose up -d
 - 🌐 Enable HTTPS through a reverse proxy
 - 🚧 Restrict external access
 - 🗝️ Store secrets in `.env`
-- 💾 Schedule regular backups
-- ⬆️ Keep Raspberry Pi OS updated
 
 ---
 
