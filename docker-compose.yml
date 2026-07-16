@@ -25,3 +25,4 @@ include:
   - portainer/portainer.yml
   - homarr/homarr.yml
   - traefik/traefik.yml
+  - flaresolverr/flaresolverr.yml

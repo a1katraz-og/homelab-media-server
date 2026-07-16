@@ -1,0 +1,12 @@
+services:  
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    network_mode: "service:gluetun"  # Routes all traffic through Gluetun
+    environment:
+      - TZ=${TIMEZONE}
+    depends_on:
+      - gluetun
+    # ports:
+    #   - 8191:8191
+    restart: unless-stopped
