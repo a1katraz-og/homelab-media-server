@@ -31,7 +31,7 @@ networks:
 
 include:
   - compose/nextcloud.yml
-  - compose/nginx-proxy.yml
+  # - compose/nginx-proxy.yml
   - compose/gluetun.yml
   - compose/qbittorrent.yml
   - compose/prowlarr.yml

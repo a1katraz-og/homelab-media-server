@@ -1,15 +1,13 @@
 <div align="center">
 
-# 🏠 Raspberry Pi 5 Media Server
+# 🏠 Media Server
 
-**A production-ready, self-hosted media automation stack for the Raspberry Pi 5 (8GB)**
+**A production-ready, self-hosted media automation stack **
 
 Docker Compose · Jellyfin · Sonarr · Radarr · Prowlarr · qBittorrent · Gluetun VPN
 
-[![Platform](https://img.shields.io/badge/platform-Raspberry%20Pi%205-c51a4a?logo=raspberrypi&logoColor=white)](#)
 [![Docker](https://img.shields.io/badge/deployed%20with-Docker%20Compose-2496ED?logo=docker&logoColor=white)](#)
 [![VPN](https://img.shields.io/badge/traffic-VPN%20secured-success?logo=wireguard&logoColor=white)](#)
-[![License](https://img.shields.io/badge/license-MIT-blue)](#-license)
 
 </div>
 
@@ -18,26 +16,17 @@ Docker Compose · Jellyfin · Sonarr · Radarr · Prowlarr · qBittorrent · Glu
 ## 📋 Table of Contents
 
 - [Features](#-features)
-- [Architecture](#️-architecture)
 - [Repository Structure](#-repository-structure)
-- [Hardware](#️-hardware)
 - [Services](#-services)
-- [Network Architecture](#-network-architecture)
 - [VPN Architecture](#-vpn-architecture)
-- [Media & Downloads Layout](#-media-layout)
-- [Volume Mapping](#-volume-mapping)
 - [Environment Variables](#️-environment-variables)
 - [Installation](#-installation)
-- [Startup Order](#-startup-order)
 - [Service Integration Flow](#-service-integration)
 - [Useful Docker Commands](#️-useful-docker-commands)
-- [Backup Strategy](#-backup-strategy)
 - [Security Recommendations](#-security-recommendations)
 - [Future Improvements](#-future-improvements)
 - [Troubleshooting](#-troubleshooting)
 - [Resource Usage](#-resource-usage-typical)
-- [License](#-license)
-- [Acknowledgements](#️-acknowledgements)
 
 ---
 
@@ -54,30 +43,6 @@ Docker Compose · Jellyfin · Sonarr · Radarr · Prowlarr · qBittorrent · Glu
 
 ---
 
-## 🏗️ Architecture
-
-```mermaid
-flowchart TB
-    INT[("🌐 Internet")]
-    IDX["Indexers"]
-    CLIENTS["📱 Jellyfin Clients"]
-
-    IDX --> PRO["Prowlarr"]
-    PRO --> SON["Sonarr"]
-    PRO --> RAD["Radarr"]
-    SON --> QB["qBittorrent"]
-    RAD --> QB
-    QB -. "network_mode: service:gluetun" .-> GLU["Gluetun VPN Gateway"]
-    GLU -- "WireGuard / OpenVPN" --> INT
-    JEL["Jellyfin"] --> CLIENTS
-    QB --> JEL
-
-    style GLU fill:#1a1a2e,stroke:#e94560,color:#fff
-    style QB fill:#16213e,stroke:#0f3460,color:#fff
-    style JEL fill:#00b4d8,stroke:#0077b6,color:#fff
-```
-
----
 
 ## 📁 Repository Structure
 
@@ -104,35 +69,9 @@ media-server/
 ├── media/              # movies / tv / anime / music / photos
 ├── downloads/           # complete / incomplete / torrents
 ├── backups/
-│
 ├── scripts/
-│   ├── backup.sh
-│   ├── restore.sh
-│   ├── update.sh
-│   └── healthcheck.sh
-│
 └── docs/
-    ├── installation.md
-    ├── networking.md
-    ├── vpn.md
-    ├── backups.md
-    ├── upgrades.md
-    └── troubleshooting.md
 ```
-
----
-
-## 🖥️ Hardware
-
-| Component | Recommendation |
-|---|---|
-| 🍓 Raspberry Pi | Pi 5 (8GB) |
-| 💽 OS | Raspberry Pi OS Lite (64-bit) |
-| 💾 Storage | 64GB SSD or NVMe |
-| 🗄️ Media Storage | External SSD/HDD |
-| ❄️ Cooling | Active Cooler |
-| 🔌 Network | Gigabit Ethernet |
-| ⚡ Power Supply | Official 27W USB-C |
 
 ---
 
@@ -153,32 +92,6 @@ media-server/
 
 ---
 
-## 🌐 Network Architecture
-
-```mermaid
-flowchart TB
-    subgraph BRIDGE["Docker Bridge Network"]
-        JEL["Jellyfin"]
-        JSE["Jellyseerr"]
-        SON["Sonarr"]
-        RAD["Radarr"]
-        PRO["Prowlarr"]
-        BAZ["Bazarr"]
-        GLU["Gluetun VPN Gateway"]
-        QB["qBittorrent<br/>(network_mode: service:gluetun)"]
-    end
-
-    SON --- PRO
-    RAD --- PRO
-    BAZ --- PRO
-    QB <--> GLU
-    JSE --> JEL
-
-    style GLU fill:#1a1a2e,stroke:#e94560,color:#fff
-    style QB fill:#16213e,stroke:#0f3460,color:#fff
-```
-
----
 
 ## 🔒 VPN Architecture
 
@@ -193,54 +106,6 @@ flowchart LR
 
     style GLU fill:#1a1a2e,stroke:#e94560,color:#fff
 ```
-
-**Benefits:**
-
-- ✅ VPN kill switch
-- ✅ DNS leak protection
-- ✅ IPv6 leak protection
-- ✅ Automatic VPN reconnect
-- ✅ Secure torrent traffic
-- ✅ No direct internet access for qBittorrent
-
----
-
-## 📂 Media Layout
-
-```text
-media/
-├── movies/
-│   └── Movie Name (2026)/
-│       └── Movie.mkv
-├── tv/
-│   └── Show Name/
-│       ├── Season 01/
-│       └── Season 02/
-├── anime/
-├── music/
-└── photos/
-```
-
-## 📦 Downloads Layout
-
-```text
-downloads/
-├── complete/
-├── incomplete/
-└── torrents/
-```
-
----
-
-## 💾 Volume Mapping
-
-| Host Path | Container Path |
-|---|---|
-| `configs/` | `/config` |
-| `downloads/` | `/downloads` |
-| `media/movies` | `/movies` |
-| `media/tv` | `/tv` |
-| `media/music` | `/music` |
 
 ---
 
@@ -309,37 +174,6 @@ docker compose up -d
 
 </details>
 
----
-
-## 🔄 Startup Order
-
-1. Gluetun
-2. qBittorrent
-3. Prowlarr
-4. Sonarr
-5. Radarr
-6. Bazarr
-7. Jellyfin
-8. Jellyseerr
-9. Watchtower
-10. Portainer
-
----
-
-## 🔗 Service Integration
-
-```mermaid
-flowchart TB
-    IDX["Indexers"] --> PRO["Prowlarr"]
-    PRO --> SON["Sonarr"]
-    PRO --> RAD["Radarr"]
-    SON --> QB["qBittorrent"]
-    RAD --> QB
-    QB -- "via Gluetun" --> DL["Downloads"]
-    DL --> LIB["Media Library"]
-    LIB --> JEL["Jellyfin"]
-    JSE["Jellyseerr"] --> JEL
-```
 
 ---
 
@@ -356,26 +190,6 @@ flowchart TB
 | Clean unused images | `docker image prune` |
 | Host disk usage | `df -h` |
 
----
-
-## 💾 Backup Strategy
-
-**Back up regularly:**
-
-- `configs/`
-- `docker-compose.yml`
-- `.env`
-- `scripts/`
-- Databases
-- Media *(optional, depending on storage)*
-
-**Recommended schedule:**
-
-| Frequency | Scope |
-|---|---|
-| Daily | Configuration backups |
-| Weekly | Full backups |
-| Monthly | Offsite backup |
 
 ---
 
@@ -491,11 +305,6 @@ Verify:
 
 > **Typical idle RAM usage: 2–3 GB**
 
----
-
-## 📄 License
-
-MIT License
 
 ---
 
@@ -503,10 +312,5 @@ MIT License
 
 Special thanks to the communities behind:
 
-Jellyfin · Jellyseerr · Sonarr · Radarr · Prowlarr · qBittorrent · Gluetun · Bazarr · LinuxServer.io · Docker · Raspberry Pi Foundation
+Jellyfin · Jellyseerr · Sonarr · Radarr · Prowlarr · qBittorrent · Gluetun · Bazarr · LinuxServer.io · Docker
 
-<div align="center">
-
-⭐ If this stack helped you, consider giving the repo a star!
-
-</div>
