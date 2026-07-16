@@ -1,10 +1,9 @@
-# docker-compose.yml
 services:
   traefik:
     image: traefik:v3.7
     container_name: traefik
     command:
-      - "--api.insecure=true" #Do not enable this flag in production
+      # - "--api.insecure=true" #Do not enable this flag in production
       - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
       #Only for setting DNS
@@ -14,13 +13,16 @@ services:
       - "--certificatesresolvers.godaddy.acme.email=${EMAIL}"
       - "--certificatesresolvers.godaddy.acme.storage=/letsencrypt/acme.json"
       - "--certificatesresolvers.godaddy.acme.dnschallenge.provider=godaddy"
+      - "--certificatesresolvers.godaddy.acme.dnschallenge.delaybeforecheck=90"
+      - "--certificatesresolvers.godaddy.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53"
     environment:
       GODADDY_API_KEY: ${GODADDY_API_KEY}
       GODADDY_API_SECRET: ${GODADDY_API_SECRET}
     ports:
       - "80:80"
-      - "8080:8080"
       - "443:443"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik/letsencrypt:/letsencrypt
+    networks:
+      - homelab_network

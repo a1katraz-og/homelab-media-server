@@ -11,7 +11,6 @@ services:
       - "traefik.http.routers.homarr.rule=Host(`home.${DOMAIN}`)"
       - "traefik.http.routers.homarr.entrypoints=websecure"
       - "traefik.http.routers.homarr.tls.certresolver=godaddy"
-      - "traefik.http.routers.homarr-secure.app=homarr"
       - "traefik.http.services.homarr.loadbalancer.server.port=7575"
     environment:
       - SECRET_ENCRYPTION_KEY=b14685be382f4f234aae59a5bdbf20054b8c11e0cc3f7181a088911234a24be0
