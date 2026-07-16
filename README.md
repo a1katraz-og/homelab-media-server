@@ -297,11 +297,4 @@ Verify:
 > **Typical idle RAM usage: 2–3 GB**
 
 
----
-
-## ❤️ Acknowledgements
-
-Special thanks to the communities behind:
-
-Jellyfin · Jellyseerr · Sonarr · Radarr · Prowlarr · qBittorrent · Gluetun · Bazarr · LinuxServer.io · Docker
 
