@@ -12,7 +12,6 @@
 
 ## 📋 Table of Contents
 
-- [Features](#-features)
 - [Repository Structure](#-repository-structure)
 - [Services](#-services)
 - [VPN Architecture](#-vpn-architecture)
@@ -25,18 +24,6 @@
 - [Troubleshooting](#-troubleshooting)
 - [Resource Usage](#-resource-usage-typical)
 
----
-
-## ✨ Features
-
-| | | |
-|---|---|---|
-| 🎬 **Jellyfin** — Media streaming | 🔍 **Jellyseerr** — Request management | 🎞️ **Radarr** — Movie automation |
-| 📺 **Sonarr** — TV automation | 🌐 **Prowlarr** — Indexer management | ⬇️ **qBittorrent** — Download client |
-| 🔒 **Gluetun** — VPN gateway (WireGuard/OpenVPN) | 📝 **Bazarr** — Subtitle automation *(optional)* | 🔄 **Watchtower** — Auto-updates *(optional)* |
-| 🖥️ **Portainer** — Docker management *(optional)* | 🔐 Secure VPN kill switch | 💾 Persistent volumes & easy backup/restore |
-
-> Lightweight, organized, and optimized to run comfortably on a Raspberry Pi 5.
 
 ---
 
