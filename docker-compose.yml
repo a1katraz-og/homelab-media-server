@@ -20,7 +20,7 @@ include:
   - radarr/radarr.yml
   - bazarr/bazarr.yml
   - jellyfin/jellyfin.yml
-  - jellyseerr/jellyseerr.yml
+  - seerr/seerr.yml
   - watchtower/watchtower.yml
   - portainer/portainer.yml
   - homarr/homarr.yml

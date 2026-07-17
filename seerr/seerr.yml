@@ -1,9 +1,10 @@
 services:
-  jellyseerr:
-    image: fallenbagel/jellyseerr:latest
-    container_name: jellyseerr
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    container_name: seerr
     environment:
       - TZ=${TZ}
+      - PORT=5055 #optional
     volumes:
       - ./config:/app/config
     ports:
