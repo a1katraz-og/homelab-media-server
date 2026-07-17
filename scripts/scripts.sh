@@ -13,3 +13,6 @@ chmod 600 traefik/letsencrypt/acme.json
 #Fix for permission issue for jellyfin
 
 sudo chown -R $(id -u):$(id -g) jellyfin-config jellyfin-cache
+#Add permission for seer
+
+sudo chown -R $(id -u):$(id -g) config
