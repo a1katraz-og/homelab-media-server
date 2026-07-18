@@ -9,6 +9,11 @@ services:
       #Only for setting DNS
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--api.dashboard=true"
+      - "--log.level=INFO"
+      - "--accesslog=true"
       #Change according to DNS provider
       - "--certificatesresolvers.godaddy.acme.email=${EMAIL}"
       - "--certificatesresolvers.godaddy.acme.storage=/letsencrypt/acme.json"
@@ -22,7 +27,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./letsencrypt:/letsencrypt
     networks:
       - homelab_network

@@ -8,12 +8,18 @@ services:
       - ./jellyfin-config:/config
       - ./jellyfin-cache:/cache
       - ${MEDIA_PATH}/Movies:/Movies
-      # - ${MEDIA_PATH}/tv:/data/tv
+      - ${MEDIA_PATH}/TV:/TV
       # - ${MEDIA_PATH}/anime:/data/anime
       # - ${MEDIA_PATH}/music:/data/music
       # - ${MEDIA_PATH}/photos:/data/photos
-    ports:
-      - "8096:8096"       # HTTP WebUI
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN}`)"
+      - "traefik.http.routers.jellyfin.entrypoints=websecure"
+      - "traefik.http.routers.jellyfin.tls.certresolver=godaddy"
+      - "traefik.http.services.jellyfin.loadbalancer.server.port=8096"
+    # ports:
+    #  - "8096:8096"       # HTTP WebUI
     #  - "8920:8920"       # HTTPS (optional)
     #  - "7359:7359/udp"   # Client discovery
     #  - "1900:1900/udp"   # DLNA
