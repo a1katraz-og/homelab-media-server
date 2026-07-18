@@ -5,10 +5,16 @@ services:
     environment:
       - TZ=${TZ}
       - PORT=5055 #optional
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.seerr.rule=Host(`seerr.${DOMAIN}`)"
+      - "traefik.http.routers.seerr.entrypoints=websecure"
+      - "traefik.http.routers.seerr.tls.certresolver=godaddy"
+      - "traefik.http.services.seerr.loadbalancer.server.port=5055"
     volumes:
       - ./config:/app/config
-    ports:
-      - "5055:5055"
+   # ports:
+   #   - "5055:5055"
     restart: unless-stopped
     networks:
       - homelab_network
