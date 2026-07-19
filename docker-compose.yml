@@ -26,3 +26,4 @@ include:
   - homarr/homarr.yml
   - traefik/traefik.yml
   - flaresolverr/flaresolverr.yml
+  - immich/immich.yml
